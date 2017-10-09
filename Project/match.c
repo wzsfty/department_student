@@ -266,7 +266,6 @@ int main(int argc, char *argv[]) {
 	char *p;  
     char *fname="input_data.txt";  
     p=getfileall(fname);  
-//    if (p!=NULL) puts(p);  
 	int i = 0,j = 0; 
 	
 	for(i=0;i<300;i++)
@@ -297,49 +296,38 @@ int main(int argc, char *argv[]) {
     	//解析free_time 
 	   	cJSON *js_free_time = cJSON_GetObjectItem(it, "free_time");
 		int array_size = cJSON_GetArraySize(js_free_time);
-//		printf("free_time :\n");
    		for(j=0;j<array_size;j++)
 		{
     		free_time = cJSON_GetArrayItem(js_free_time, j); 
-//    		printf("%s\n",free_time->valuestring);
 			stu[i].free_time[j] = free_time->valuestring;
 		}
 		//解析 student_no
     	student_no = cJSON_GetObjectItem(it, "student_no");  
-//    	printf("student_no :\n");  
-//    	printf("%s\n",student_no->valuestring);
 		stu[i].student_no = student_no->valuestring;
 		
 
     	//解析applications_department
     	cJSON *js_applications_department = cJSON_GetObjectItem(it, "applications_department");
     	array_size = cJSON_GetArraySize(js_applications_department);
-//    	printf("applications_department :\n");
    		for(j=0;j<array_size;j++)
 		{
     		applications_department = cJSON_GetArrayItem(js_applications_department, j); 
-//    		printf("%s\n",applications_department->valuestring);
 			stu[i].applications_department[j] = applications_department->valuestring;
 			char *temp = (char *)malloc(sizeof(char)*10) ;
 			strcpy(temp,stu[i].applications_department[j]+2);
-//			printf("%s",temp);return 0;
 			applications_number[atoi(temp)]++; 
 			d_student[atoi(temp)][applications_number[atoi(temp)]] = i;
 		}
 		//解析tags
 		cJSON *js_tags = cJSON_GetObjectItem(it, "tags");
 		array_size = cJSON_GetArraySize(js_tags);
-//		printf("tags :\n");
 		for(j=0;j<array_size;j++)
 		{
     		s_tags = cJSON_GetArrayItem(js_tags, j); 
-//    		printf("%s\n",s_tags->valuestring);
 			stu[i].s_tag[j] = s_tags->valuestring;
 		}
-//		printf("*****************************************************************************************************\n");
   	}  
   	
-//  	printf("%s\n",stu[0].s_tag[1]);return 0;
   	//解析json中的department
 	cJSON *js_department = cJSON_GetObjectItem(root_json, "departments");  
 	array_size = cJSON_GetArraySize(js_department);  
@@ -354,50 +342,34 @@ int main(int argc, char *argv[]) {
     	//解析 event_schedules
     	cJSON *js_event_schedules = cJSON_GetObjectItem(it, "event_schedules");
     	int array_size = cJSON_GetArraySize(js_event_schedules);
-//    	printf("event_schedules :\n");
     	for(j=0;j<array_size;j++)
 		{
     		event_schedules = cJSON_GetArrayItem(js_event_schedules, j); 
-//    		printf("%s\n",event_schedules->valuestring);
 			dep[i].event_schedules[j] = event_schedules->valuestring;
 		}
 		//解析 member_limit
 		member_limit = cJSON_GetObjectItem(it, "member_limit"); 
-//		printf("member_limit :\n");  
-//    	printf("%d\n",member_limit->valueint);
 		dep[i].member_limit = member_limit->valueint;
-
 
 		//解析department_no
 		department_no = cJSON_GetObjectItem(it, "department_no"); 
-//		printf("department_no :\n"); 
-//		printf("%s\n",department_no->valuestring); 
 		dep[i].department_no = department_no->valuestring;
+		
 		//解析tags
 		cJSON *js_tags = cJSON_GetObjectItem(it, "tags");
 		array_size = cJSON_GetArraySize(js_tags);
-//		printf("tags :\n");
 		for(j=0;j<array_size;j++)
 		{
     		d_tags = cJSON_GetArrayItem(js_tags, j); 
-//    		printf("%s\n",d_tags->valuestring);
 			dep[i].d_tag[j] = d_tags->valuestring;
 		}
-//		printf("*****************************************************************************************************\n");
 	}
-//	 	printf("%s\n",dep[0].d_tag[0]);
 
 
 
 		
 		choose_student();
-//		for(i=0;i<300;i++)
-//		{
-//		if(stu[i].department==1)
-//		{
-//			printf("%s\n",stu[i].student_no);
-//		}
-//		}	
+	
 		//json 输出 
 /*-----------------------------------------------------------------------------------------------------------*/
 		cJSON * root = cJSON_CreateObject();
